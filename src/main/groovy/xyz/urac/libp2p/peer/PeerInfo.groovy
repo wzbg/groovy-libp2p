@@ -12,7 +12,7 @@ import groovy.transform.Canonical
 class PeerInfo {
   PeerId id
 
-  PeerInfo(peerId) {
+  PeerInfo(PeerId peerId) {
     assert peerId != null : 'Missing peerId. Use PeerId.create([bits]) to create one'
     id = peerId
   }
@@ -20,7 +20,7 @@ class PeerInfo {
   /**
    * generation
    */
-  static create(id) {
+  static create(PeerId id) {
     if (!id) {
       id = PeerId.create()
     }
