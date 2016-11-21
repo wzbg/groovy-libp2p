@@ -8,6 +8,21 @@ import xyz.urac.libp2p.peer.PeerInfo
  */
 class Swarm {
   PeerInfo pInfo
+  Map transports = [:] // { key: transport }; e.g { tcp: <tcp> }
+  Map conns = [:] // { peerIdB58: { conn: <conn> } }
+  /**
+   * {
+   *   peerIdB58: {
+   *     muxer: <muxer>,
+   *     conn: <transport socket> // to extract info required for the Identify Protocol
+   *   }
+   * }
+   */
+  Map muxedConns = [:]
+  Map muxers = [:] // { muxerCodec: <muxer> } e.g { '/spdy/0.3.1': spdy }
+  Map crypto = [:] // Crypto details
+  Map protocols = [:] // { protocol: handler }
+  boolean identify // is the Identify protocol enabled?
 
   Swarm(PeerInfo pInfo) {
     assert pInfo != null : 'missing peer info'
