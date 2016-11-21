@@ -1,5 +1,7 @@
 package xyz.urac.libp2p.peer
 
+import xyz.urac.libp2p.swarm.Swarm
+
 /**
  * @author huanbing ￠幻冰
  * @date 2016年11月21日 上午11:51:32
@@ -7,12 +9,24 @@ package xyz.urac.libp2p.peer
 class Peer {
   PeerInfo pInfo
   PeerBook pBook
+  Swarm swarm
   boolean isOnline
 
   Peer(PeerInfo pInfo, PeerBook pBook = new PeerBook()) {
-    assert id != null : 'missing peer info'
+    assert pInfo != null : 'missing peer info'
     this.pInfo = pInfo
     this.pBook = pBook
+    // Swarm
+    swarm = new Swarm(pInfo)
+//    swarm.connection.addStreamMuxer(spdy)
+//    swarm.connection.reuse()
+//    swarm.connection.crypto(secio.tag, secio.encrypt)
+//    swarm.on('peer-mux-established', pInfo -> {
+//      pBook.put peerInfo
+//    })
+//    swarm.on('peer-mux-closed', pInfo -> {
+//      pBook.removeByB58String pInfo.id.toB58String()
+//    })
   }
 
   def start() {}
