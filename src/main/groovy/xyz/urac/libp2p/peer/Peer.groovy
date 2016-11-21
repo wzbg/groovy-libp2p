@@ -29,7 +29,11 @@ class Peer {
 //    })
   }
 
-  def start() {}
+  def start() {
+    pInfo.multiAddrs.forEach {
+      swarm.transports.put key, value
+    }
+  }
 
   def stop() {}
 
