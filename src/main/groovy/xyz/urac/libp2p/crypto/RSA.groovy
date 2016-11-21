@@ -10,7 +10,7 @@ import java.security.spec.X509EncodedKeySpec
 class RSA {
   static final ALGORITHM = 'RSA'
 
-  static genKeyPair(int bits = 2048) {
+  static genKeyPair(int bits) {
     def rsa = KeyPairGenerator.getInstance ALGORITHM
     rsa.initialize bits
     rsa.genKeyPair()
