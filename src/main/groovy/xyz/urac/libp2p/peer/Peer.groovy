@@ -30,7 +30,7 @@ class Peer {
   }
 
   def start() {
-    pInfo.multiAddrs.forEach {
+    pInfo.multiAddrs.each {
       swarm.transports.put key, value
     }
   }

@@ -44,8 +44,8 @@ class PeerInfo {
     if (fresh instanceof MultiAddress) {
       fresh = [fresh]
     }
-    existing.forEach { removeMultiAddr it }
-    fresh.forEach { removeMultiAddr it }
+    existing.each { removeMultiAddr it }
+    fresh.each { removeMultiAddr it }
   }
 
   /**
