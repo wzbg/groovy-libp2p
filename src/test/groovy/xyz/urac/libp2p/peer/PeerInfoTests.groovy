@@ -7,7 +7,7 @@ class PeerInfoTests extends GroovyTestCase {
     def peerInfo = PeerInfo.create()
     assert peerInfo != null
     println peerInfo
-    MultiAddress addr = new MultiAddress('')
+    MultiAddress addr = new MultiAddress('/ip4/127.0.0.1/ipfs/QmcgpsyWgH8Y8ajJz1Cu72KnS5uo2Aa2LpzU7kinSupNKC/tcp/1234')
     def result = peerInfo.addMultiAddr addr
     assert result
     result = peerInfo.removeMultiAddr addr
