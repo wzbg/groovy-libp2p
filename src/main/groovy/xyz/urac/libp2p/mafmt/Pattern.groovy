@@ -8,6 +8,7 @@ import org.ipfs.api.Protocol
 
 import xyz.urac.libp2p.util.Operator
 
+
 /**
  * multiaddr format patterns
  * 
@@ -17,8 +18,8 @@ import xyz.urac.libp2p.util.Operator
 @AutoClone
 @Canonical
 class Pattern {
-  def bases
-  def ops = []
+  List<Base> bases
+  List<Operator> ops = []
 
   Pattern(String proto) {
     assert proto != null : 'invalid proto provided'
@@ -75,5 +76,20 @@ class Pattern {
   def matches(addr) {
     def protos = protos addr
     if (!protos) return false
+    def base = bases.pop()
+    while (ops) {
+      switch (ops.pop()) {
+        case or:
+          if (base.partialMatch(protos)) return true
+        case and:
+          if (!base.partialMatch(protos)) return false
+        case leftParentheses:
+        case rightParentheses:
+        default:
+          throw new IllegalStateException('unrecognized pattern op!')
+      }
+      base = bases.pop()
+    }
+    base.partialMatch protos
   }
 }
