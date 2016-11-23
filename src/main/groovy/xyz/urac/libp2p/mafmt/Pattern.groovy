@@ -74,22 +74,22 @@ class Pattern {
   def matches(addr) {
     def protos = protos addr
     if (!protos) return false
-    this.clone().with {
-      def base = bases.pop()
-      while (ops) {
-        switch (ops.pop()) {
-          case Operator.or:
-            if (base.partialMatch(protos)) return true
-          case Operator.and:
-            if (!base.partialMatch(protos)) return false
-          case Operator.leftParentheses:
-          case Operator.rightParentheses:
-            break
-          default:
-            throw new IllegalStateException('unrecognized pattern op!')
-        }
-        base = bases.pop()
+    def bases = bases.clone()
+    def ops = ops.clone()
+    def base = bases.pop()
+    while (ops) {
+      switch (ops.pop()) {
+        case Operator.or:
+          if (base.partialMatch(protos)) return true
+        case Operator.and:
+          if (!base.partialMatch(protos)) return false
+        case Operator.leftParentheses:
+        case Operator.rightParentheses:
+          break
+        default:
+          throw new IllegalStateException('unrecognized pattern op!')
       }
+      base = bases.pop()
     }
     base.partialMatch protos
   }
