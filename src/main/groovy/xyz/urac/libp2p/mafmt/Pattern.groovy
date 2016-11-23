@@ -4,6 +4,7 @@ import groovy.transform.AutoClone
 import groovy.transform.Canonical
 
 import org.ipfs.api.MultiAddress
+import org.ipfs.api.Protocol
 
 import xyz.urac.libp2p.util.Operator
 
@@ -24,7 +25,7 @@ class Pattern {
     bases = [new Base(proto)]
   }
 
-  def op(Pattern other, Operator op) {
+  private op(Pattern other, Operator op) {
     def result = this.clone()
     result.with {
       bases += other.bases
@@ -38,20 +39,41 @@ class Pattern {
     result
   }
 
+  /**
+   * |
+   * @param other
+   * @return pattern
+   */
   def or(other) {
     op other, Operator.or
   }
 
+  /**
+   * &
+   * @param other
+   * @return pattern
+   */
   def and(other) {
     op other, Operator.and
   }
 
-  def matches(addr) {
+  private protos(addr) {
     if (!addr instanceof MultiAddress) {
       addr = new MultiAddress(addr)
     }
+    def parts = addr.toString().split '/'
+    def protos = []
+    parts.eachWithIndex { part, i ->
+      if (i % 2) {
+        def proto = Protocol.get part
+        protos << proto.name()
+      }
+    }
+    protos
   }
 
-  def partialMatch(protos) {
+  def matches(addr) {
+    def protos = protos addr
+    if (!protos) return false
   }
 }

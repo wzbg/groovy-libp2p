@@ -28,8 +28,10 @@ class Base {
   }
 
   def partialMatch(protos) {
-    if (protos && protos[0] == name) {
-      protos.drop 1
+    protos?.each {
+      if (it == name) {
+        return true
+      }
     }
   }
 
