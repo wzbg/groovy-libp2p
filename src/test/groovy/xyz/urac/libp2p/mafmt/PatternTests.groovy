@@ -1,13 +1,15 @@
 package xyz.urac.libp2p.mafmt
 
+import xyz.urac.libp2p.mafmt.transport.Transport
+
 class PatternTests extends GroovyTestCase {
-  static IP = new Pattern('ip4') | new Pattern('ip6') // ~'ip4|ip6'
-  static TCP = IP & new Pattern('tcp') // ~'(ip4|ip6)/tcp'
-  static UDP = IP & new Pattern('udp') // ~'(ip4|ip6)/udp'
-  static UTP = UDP & new Pattern('utp') // ~'(ip4|ip6)/udp/utp'
-  static Unreliable = UDP // ~'(ip4|ip6)/udp'
-  static Reliable = TCP | UTP // ~'((ip4|ip6)/tcp)|((ip4|ip6)/udp/utp)'
-  static IPFS = Reliable & new Pattern('ipfs') // ~'(((ip4|ip6)/tcp)|((ip4|ip6)/udp/utp))/ipfs'
+  static IP = Transport.IP
+  static TCP = Transport.TCP
+  static UDP = Transport.UDP
+  static UTP = Transport.UTP
+  static Unreliable = Transport.Unreliable
+  static Reliable = Transport.Reliable
+  static IPFS = Transport.IPFS
 
   def assertMatches(p, args, b = true) {
     args?.each {
