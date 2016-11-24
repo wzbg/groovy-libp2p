@@ -1,5 +1,6 @@
 package xyz.urac.libp2p.peer
 
+import xyz.urac.libp2p.enums.Transport
 import xyz.urac.libp2p.swarm.Swarm
 
 /**
@@ -18,21 +19,26 @@ class Peer {
     this.pBook = pBook
     // Swarm
     swarm = new Swarm(pInfo)
-//    swarm.connection.addStreamMuxer(spdy)
-//    swarm.connection.reuse()
-//    swarm.connection.crypto(secio.tag, secio.encrypt)
-//    swarm.on('peer-mux-established', pInfo -> {
-//      pBook.put peerInfo
-//    })
-//    swarm.on('peer-mux-closed', pInfo -> {
-//      pBook.removeByB58String pInfo.id.toB58String()
-//    })
+    //    swarm.connection.addStreamMuxer(spdy)
+    //    swarm.connection.reuse()
+    //    swarm.connection.crypto(secio.tag, secio.encrypt)
+    //    swarm.on('peer-mux-established', pInfo -> {
+    //      pBook.put peerInfo
+    //    })
+    //    swarm.on('peer-mux-closed', pInfo -> {
+    //      pBook.removeByB58String pInfo.id.toB58String()
+    //    })
   }
 
   def start() {
-    pInfo.multiAddrs.each {
-      swarm.transports.put key, value
+    def multiAddrs = pInfo.multiAddrs
+    assert !multiAddrs.empty : 'empty addrs'
+    Transport.values().each {
+      if (it.pattern.filter(multiAddrs)) {
+        swarm.transports.put it.name, it.pattern
+      }
     }
+    swarm.listen()
   }
 
   def stop() {}

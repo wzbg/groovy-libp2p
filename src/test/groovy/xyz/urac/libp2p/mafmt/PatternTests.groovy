@@ -1,15 +1,15 @@
 package xyz.urac.libp2p.mafmt
 
-import xyz.urac.libp2p.mafmt.transport.Transport
+import xyz.urac.libp2p.enums.Transport
 
 class PatternTests extends GroovyTestCase {
-  static IP = Transport.IP
-  static TCP = Transport.TCP
-  static UDP = Transport.UDP
-  static UTP = Transport.UTP
-  static Unreliable = Transport.Unreliable
-  static Reliable = Transport.Reliable
-  static IPFS = Transport.IPFS
+  static IP = Transport.IP.pattern
+  static TCP = Transport.TCP.pattern
+  static UDP = Transport.UDP.pattern
+  static UTP = Transport.UTP.pattern
+  static Unreliable = Transport.Unreliable.pattern
+  static Reliable = Transport.Reliable.pattern
+  static IPFS = Transport.IPFS.pattern
 
   def assertMatches(p, args, b = true) {
     args?.each {

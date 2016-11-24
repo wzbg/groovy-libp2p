@@ -1,11 +1,10 @@
 package xyz.urac.libp2p.mafmt
 
 import groovy.transform.AutoClone
+import xyz.urac.libp2p.enums.Operator;
 
 import org.ipfs.api.MultiAddress
 import org.ipfs.api.Protocol
-
-import xyz.urac.libp2p.util.Operator
 
 
 /**
@@ -73,6 +72,10 @@ class Pattern {
     def protos = protos addr
     if (!protos) return false
     protos.join(Operator.and.sign) ==~ ~regex
+  }
+
+  def filter(addrs) {
+    addrs?.findAll { matches it }
   }
 
   @Override
