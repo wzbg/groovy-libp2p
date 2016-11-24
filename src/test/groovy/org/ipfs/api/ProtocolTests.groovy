@@ -13,13 +13,8 @@ class ProtocolTests extends GroovyTestCase {
 
   void testGetProtocols() {
     def parts = ADDR.split '/'
-    def protos = []
-    parts.eachWithIndex { part, i ->
-      if (i % 2) {
-        def proto = Protocol.get part
-        protos << proto.name()
-      }
-    }
+    def names = Protocol.byName.keySet()
+    def protos = parts.findAll { names.contains it }
     assert protos == ['ip4', 'ipfs', 'tcp']
   }
 }

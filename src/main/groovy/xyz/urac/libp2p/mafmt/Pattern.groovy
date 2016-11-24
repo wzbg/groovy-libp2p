@@ -64,20 +64,14 @@ class Pattern {
       addr = new MultiAddress(addr)
     }
     def parts = addr.toString().split '/'
-    def protos = []
-    parts.eachWithIndex { part, i ->
-      if (i % 2) {
-        def proto = Protocol.get part
-        protos << proto.name()
-      }
-    }
+    def names = Protocol.byName.keySet()
+    def protos = parts.findAll { names.contains it }
     protos
   }
 
   def matches(addr) {
     def protos = protos addr
     if (!protos) return false
-//    println "${protos.join('/')} =~ $regex ${protos.join('/') ==~ ~regex}" // test
     protos.join(Operator.and.sign) ==~ ~regex
   }
 
