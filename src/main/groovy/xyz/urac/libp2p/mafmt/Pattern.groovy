@@ -32,19 +32,10 @@ class Pattern {
       if (bases.size() > 1) {
         regex1 = "($regex1)"
       }
-      switch (op) {
-        case Operator.or:
-          if (other.bases.size() > 1) {
-            regex2 = "($regex2)"
-          }
-          regex = "$regex1|$regex2"
-          break
-        case Operator.and:
-          regex = "$regex1/$regex2"
-          break
-        default:
-          throw new IllegalStateException('unrecognized pattern op!')
+      if (other.bases.size() > 1 && op == Operator.or) {
+        regex2 = "($regex2)"
       }
+      regex = "$regex1$op$regex2"
       bases += other.bases
     }
     result
@@ -86,8 +77,8 @@ class Pattern {
   def matches(addr) {
     def protos = protos addr
     if (!protos) return false
-    println "${protos.join('/')} =~ $regex ${protos.join('/') ==~ ~regex}" // test
-    protos.join('/') ==~ ~regex
+//    println "${protos.join('/')} =~ $regex ${protos.join('/') ==~ ~regex}" // test
+    protos.join(Operator.and.sign) ==~ ~regex
   }
 
   @Override
