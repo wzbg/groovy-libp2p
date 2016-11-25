@@ -2,6 +2,10 @@ package xyz.urac.libp2p.peer
 
 import org.ipfs.api.Multihash
 
+/**
+ * @author huanbing ￠幻冰
+ * @date 2016年11月25日 上午11:39:25
+ */
 class PeerBookTests extends GroovyTestCase {
   void testByBase58() {
     // new
@@ -9,7 +13,7 @@ class PeerBookTests extends GroovyTestCase {
     assert peerBook != null
     println peerBook
     // put
-    def peerInfo = PeerInfo.create()
+    PeerInfo peerInfo = PeerInfo.create()
     def result = peerBook.put peerInfo
     assert result
     // get

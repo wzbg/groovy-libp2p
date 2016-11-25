@@ -1,5 +1,9 @@
 package xyz.urac.libp2p.mafmt
 
+/**
+ * @author huanbing ￠幻冰
+ * @date 2016年11月25日 上午11:16:44
+ */
 enum Operator {
   plus('+'), // a + b
   minus('-'), // a – b

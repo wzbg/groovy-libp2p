@@ -1,5 +1,9 @@
 package xyz.urac.libp2p.mafmt
 
+/**
+ * @author huanbing ￠幻冰
+ * @date 2016年11月25日 上午11:34:45
+ */
 class PatternTests extends GroovyTestCase {
   static IP = Transport.IP
   static TCP = Transport.TCP
@@ -9,14 +13,14 @@ class PatternTests extends GroovyTestCase {
   static Reliable = Transport.Reliable
   static IPFS = Transport.IPFS
 
-  def assertMatches(p, args, b = true) {
+  private assertMatches(Pattern p, args, b = true) {
     args?.each {
       def matched = p.matches it
       assert matched == b
     }
   }
 
-  def assertMismatches(p, args) {
+  private assertMismatches(p, args) {
     assertMatches p, args, false
   }
 

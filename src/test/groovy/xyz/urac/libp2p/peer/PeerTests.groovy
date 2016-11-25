@@ -2,6 +2,10 @@ package xyz.urac.libp2p.peer
 
 import xyz.urac.libp2p.mafmt.Transport
 
+/**
+ * @author huanbing ￠幻冰
+ * @date 2016年11月25日 上午11:39:55
+ */
 class PeerTests extends GroovyTestCase {
   Peer peer
 

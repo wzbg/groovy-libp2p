@@ -2,10 +2,14 @@ package xyz.urac.libp2p.peer
 
 import org.bouncycastle.util.encoders.Hex
 
+/**
+ * @author huanbing ￠幻冰
+ * @date 2016年11月25日 上午11:38:59
+ */
 class PeerIdTests extends GroovyTestCase {
   void testCreate() {
     // create
-    def peerId = PeerId.create()
+    PeerId peerId = PeerId.create()
     assert peerId != null
     println peerId.toPrint()
     println peerId.toHexString()
@@ -47,32 +51,32 @@ class PeerIdTests extends GroovyTestCase {
     assert peerId7.privKey == peerId.privKey
     assert peerId7.pubKey == peerId.pubKey
     // create from id's bytes
-    def peerId8 = PeerId.createFromBytes peerId.id
+    PeerId peerId8 = PeerId.createFromBytes peerId.id
     assert peerId8?.id == peerId.id
     assert peerId8.privKey == null
     assert peerId8.pubKey == null
     // create from id's hex string
-    def peerId9 = PeerId.createFromHexString peerId.toHexString()
+    PeerId peerId9 = PeerId.createFromHexString peerId.toHexString()
     assert peerId9?.id == peerId.id
     assert peerId9.privKey == null
     assert peerId9.pubKey == null
     // create from id's base58 string
-    def peerId10 = PeerId.createFromB58String peerId.toB58String()
+    PeerId peerId10 = PeerId.createFromB58String peerId.toB58String()
     assert peerId10?.id == peerId.id
     assert peerId10.privKey == null
     assert peerId10.pubKey == null
     // create from privKey
-    def peerId11 = PeerId.createFromPrivKey peerId.toB64PrivKey()
+    PeerId peerId11 = PeerId.createFromPrivKey peerId.toB64PrivKey()
     assert peerId11?.id == peerId.id
     assert peerId11.privKey == peerId.privKey
     assert peerId11.pubKey == peerId.pubKey
     // create from pubKey
-    def peerId12 = PeerId.createFromPubKey peerId.toB64PubKey()
+    PeerId peerId12 = PeerId.createFromPubKey peerId.toB64PubKey()
     assert peerId12?.id == peerId.id
     assert peerId12.privKey == null
     assert peerId12.pubKey == peerId.pubKey
     // create from json
-    def peerId13 = PeerId.createFromJSON peerId.toString()
+    PeerId peerId13 = PeerId.createFromJSON peerId.toString()
     assert peerId13?.id == peerId.id
     assert peerId13.privKey == peerId.privKey
     assert peerId13.pubKey == peerId.pubKey

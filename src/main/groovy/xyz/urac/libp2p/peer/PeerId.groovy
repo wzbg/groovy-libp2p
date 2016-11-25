@@ -90,7 +90,7 @@ class PeerId {
   /**
    * @return the jsonified version of the key, matching the formatting of go-ipfs for its config file
    */
-  def toJSON() {
+  JsonBuilder toJSON() {
     new JsonBuilder([
       id: toB58String(),
       privKey: toB64PrivKey(),
@@ -167,7 +167,7 @@ class PeerId {
     if (!json instanceof String && !json instanceof JsonBuilder) {
       json = new JsonBuilder(json)
     }
-    def map = new JsonSlurper().parseText json.toString()
+    Map map = new JsonSlurper().parseText json.toString()
     def id = map.id
     def privKey = map.privKey
     def pubKey = map.pubKey
