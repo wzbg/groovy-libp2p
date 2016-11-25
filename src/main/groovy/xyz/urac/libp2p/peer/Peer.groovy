@@ -1,6 +1,6 @@
 package xyz.urac.libp2p.peer
 
-import xyz.urac.libp2p.enums.Transport
+import xyz.urac.libp2p.mafmt.Transport
 import xyz.urac.libp2p.swarm.Swarm
 
 /**
@@ -11,7 +11,7 @@ class Peer {
   PeerInfo pInfo
   PeerBook pBook
   Swarm swarm
-  boolean isOnline
+  boolean online
 
   Peer(PeerInfo pInfo, PeerBook pBook = new PeerBook()) {
     assert pInfo != null : 'missing peer info'
@@ -30,15 +30,17 @@ class Peer {
     //    })
   }
 
-  def start() {
+  void start() {
     def multiAddrs = pInfo.multiAddrs
     assert !multiAddrs.empty : 'empty addrs'
-    Transport.values().each {
-      if (it.pattern.filter(multiAddrs)) {
-        swarm.transports.put it.name, it.pattern
+    Transport.supports().each { name, pattern ->
+      def addrs = pattern.filter multiAddrs
+      if (addrs) {
+        swarm.transports.put name, addrs
       }
     }
     swarm.listen()
+    online = true
   }
 
   def stop() {}

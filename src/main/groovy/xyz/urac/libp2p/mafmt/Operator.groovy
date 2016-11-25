@@ -1,4 +1,4 @@
-package xyz.urac.libp2p.enums
+package xyz.urac.libp2p.mafmt
 
 enum Operator {
   plus('+'), // a + b

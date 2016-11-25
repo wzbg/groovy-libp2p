@@ -1,7 +1,6 @@
 package xyz.urac.libp2p.mafmt
 
 import groovy.transform.AutoClone
-import xyz.urac.libp2p.enums.Operator;
 
 import org.ipfs.api.MultiAddress
 import org.ipfs.api.Protocol
