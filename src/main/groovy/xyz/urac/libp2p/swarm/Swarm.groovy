@@ -31,7 +31,10 @@ class Swarm {
 
   def dial() {}
 
-  def listen() {}
+  def listen() {
+    transports.each { name, addrs ->
+    }
+  }
 
   def handle(protocol, handlerFunc, matchFunc) {}
 
